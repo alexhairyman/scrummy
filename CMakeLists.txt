@@ -1,8 +1,10 @@
 # Nothin Here yet
 cmake_minimum_required(VERSION 2.8)
 project(scrummy)
-message("Nothing here yet, use makefile")
 
+message("Current Version: ${M_VER}")
+
+set(M_VER "0.0.3")
 add_definitions("-I.." "-I.")
 list(APPEND
   BUILTCOMPS
