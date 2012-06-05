@@ -98,6 +98,23 @@ namespace scrum
     {
       vv->login_stat->toggle();
       vv->label("downloading");
+      
+      if(vv->rlin32->value() == 1)
+      {
+        vv->myd->seturl(_lin32);
+      }
+      else if (vv->rwin32->value() == 1)
+      {
+        vv->myd->seturl(_win32);
+      }
+      else if (vv->rlin64->value() == 1)
+      {
+        vv->myd->seturl(_lin64);
+      }
+      else if (vv->rsrc->value() == 1)
+      {
+        vv->myd->seturl(_src);
+      }
       vv->myd->download();
       
     }

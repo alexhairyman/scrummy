@@ -33,6 +33,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/device/null.hpp>
 
+#include <string>
 //~ Just some static stuffs
 
 using namespace std;
@@ -49,10 +50,12 @@ namespace scrum
     void download();
     void login(string user, string pass);
     bool isauthed();
+    void seturl(string setto);
     
   //~ protected:
   
   private:
+    string _URL;
     curlpp::Forms sdd;
     boost::iostreams::stream_buffer<boost::iostreams::file_sink> ofsb;
     boost::iostreams::stream_buffer<boost::iostreams::file_sink> cookieout;

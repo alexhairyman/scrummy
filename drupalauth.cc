@@ -82,6 +82,10 @@ namespace scrum
    
   }
   
+  void drupalauth::seturl(string setto)
+  {
+    _URL = setto;
+  }
   
   bool drupalauth::isauthed()
   {
@@ -95,7 +99,7 @@ namespace scrum
 //    dc.setOpt(new curlpp::options::CookieJar("cookie.txt"));
     dc.setOpt(new curlpp::options::CookieFile(cookief.native()));
     dc.setOpt(new curlpp::options::WriteStream(&ofs));
-    dc.setOpt(new curlpp::options::Url("http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin32-full_0.zip"));
+    dc.setOpt(new curlpp::options::Url(_URL));
     dc.setOpt(new curlpp::options::HttpGet(true));
     dc.perform();
 
