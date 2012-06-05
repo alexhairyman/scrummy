@@ -4,7 +4,7 @@ project(scrummy)
 
 message("Current Version: ${M_VER}")
 
-set(M_VER "0.0.3")
+set(M_VER "0.0.4")
 add_definitions("-I.." "-I.")
 list(APPEND
   BUILTCOMPS
