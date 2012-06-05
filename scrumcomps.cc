@@ -69,7 +69,7 @@ namespace scrum
     
     rwin32 = new Fl_Radio_Button(10,100,200,20,"windows 32 bit version");
     rsrc = new Fl_Radio_Button(10,130,200,20,"Source Code!");
-    rlin64 = new Fl_Radio_Button(10,160,200,20,"Linux 32 bit version");
+    rlin64 = new Fl_Radio_Button(10,160,200,20,"Linux 64 bit version");
     rlin32 = new Fl_Radio_Button(10,190,200,20,"Linux 32 bit version");
     
     versionselect->end();
