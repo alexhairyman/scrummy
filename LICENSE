@@ -1,4 +1,3 @@
-/*
 Copyright (c) 2011 Henrik Cooke, henrik@cooke.se
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -19,21 +18,3 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-#include "scrumcomps.hh"
-
-using namespace std;
-
-//~ scrummer
-//~ 
-
-class scrummer
-{
-public:
-  scrummer();
-  
-//private:
-  scrum::drupalauth d;
-  scrum::scrumwin * s;
-};
