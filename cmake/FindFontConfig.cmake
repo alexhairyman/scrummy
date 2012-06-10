@@ -1,0 +1,27 @@
+#~ finds curlpp
+#~ 
+#~ 
+#~ 
+#~ 
+#~ 
+#~ 
+#~ 
+#~ 
+#~ 
+
+set(FONTCONFIG_FIND_NAMES fontconfig libfontconfig)
+
+set(FONTCONFIG_INCLUDE_PREFIX "fontconfig/")
+set(FONTCONFIG_INCLUDE_SEARCHES "fontconfig.h")
+
+
+find_path(FONTCONFIG_INCLUDE_DIR NAMES ${FONTCONFIG_INCLUDE_SEARCHES} PATH_SUFFIXES ${FONTCONFIG_INCLUDE_PREFIX})
+find_library(FONTCONFIG_LIBRARY NAMES ${FONTCONFIG_FIND_NAMES} PATHS "/usr/local/lib")
+
+set(FONTCONFIG_LIBRARIES ${FONTCONFIG_LIBRARY})
+set(FONTCONFIG_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
+
+include(${CMAKE_ROOT}/Modules/FindPackageHandleStandardArgs.cmake)
+find_package_handle_standard_args(FONTCONFIG DEFAULT_MSG FONTCONFIG_LIBRARY FONTCONFIG_INCLUDE_DIR)
+
+mark_as_advanced(FONTCONFIG_LIBRARY FONTCONFIG_INCLUDE_DIR)
