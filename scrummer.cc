@@ -26,8 +26,8 @@ using namespace std;
 
 #define out(a) std::cout << #a << ": " << a << std::endl;
 
-//~ Everything scrummer
-//~ classes,etc
+// Everything scrummer
+// classes,etc
 
 int main(int argc, char* argv[])
 {

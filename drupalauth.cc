@@ -49,7 +49,7 @@ namespace scrum
 //    ckout->rdbuf(&cookieout);
   
     ec.setOpt(new curlpp::options::Url("http://dynamic.scrumbleship.com/user/login"));
-    //~ ec.setOpt(new curlpp::options::Url("127.0.1.1/drupal7/?q=user/login"));
+    // ec.setOpt(new curlpp::options::Url("127.0.1.1/drupal7/?q=user/login"));
     ec.setOpt(new curlpp::options::Post(true));
     ec.setOpt(new curlpp::options::FollowLocation(true));
     ec.setOpt(new curlpp::options::CookieJar(cookief.native()));

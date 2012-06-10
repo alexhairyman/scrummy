@@ -74,7 +74,7 @@ namespace scrum
     string geturlstring();
     
   private:
-    //~ gettin' down 'n' dirty!
+    // gettin' down 'n' dirty!
     drupalauth* myd;
     Fl_Box* mainlbl;
     Fl_Button* login_but;

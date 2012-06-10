@@ -34,7 +34,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <boost/iostreams/device/null.hpp>
 
 #include <string>
-//~ Just some static stuffs
+// Just some static stuffs
 
 using namespace std;
 //using namespace boost;
@@ -52,7 +52,7 @@ namespace scrum
     bool isauthed();
     void seturl(string setto);
     
-  //~ protected:
+  // protected:
   
   private:
     string _URL;

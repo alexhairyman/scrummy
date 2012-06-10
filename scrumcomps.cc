@@ -23,8 +23,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "scrumcomps.hh"
 namespace scrum
 {
-  //~ Fl light output stuff
-  //~ 
+  // Fl light output stuff
+  // 
   Fl_Light_Output::Fl_Light_Output(int x, int y, int w, int h) : Fl_Light_Button(x,y,w,h,"logged in?")
   {
     
