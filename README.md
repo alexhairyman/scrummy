@@ -1,4 +1,5 @@
-#Current version is: 0.0.6
+# Scrumbleship is a Trademark of Orange Hat Tech, this project is in no way condoned or officially supported by Orange Hat Tech
+##Current version is: 0.0.6
 
 - currently saves the file to another one called of.txt
 - enjoy! :D
