@@ -1,13 +1,4 @@
 #~ finds curlpp
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
 
 find_package(CURL REQUIRED)
 

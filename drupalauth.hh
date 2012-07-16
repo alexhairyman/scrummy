@@ -20,6 +20,10 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+#ifndef __DRUPALAUTH
+#define __DRUPALAUTH
+
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -32,6 +36,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/device/null.hpp>
+#include "scrummer2.hh"
 
 #include <string>
 // Just some static stuffs
@@ -51,10 +56,14 @@ namespace scrum
     void login(string user, string pass);
     bool isauthed();
     void seturl(string setto);
+    void setv(int V);
+    int getversel();
     
   // protected:
-  
+    static string getstringoffile(int plat);
+    static string getstringofurl(int plat);
   private:
+    int _V;
     string _URL;
     curlpp::Forms sdd;
     boost::iostreams::stream_buffer<boost::iostreams::file_sink> ofsb;
@@ -62,7 +71,10 @@ namespace scrum
     boost::iostreams::stream_buffer<boost::iostreams::null_sink> devinnull;
     
     ofstream mofs;
-    
+
+//    boost::iostreams::stream<boost::iostreams::file_sink> ofs;
+//    boost::iostreams::stream<boost::iostreams::file_sink> ckout;
+//    boost::iostreams::stream<boost::iostreams::null_sink> complaintbox;
     iostream ofs;
     iostream ckout;
     iostream complaintbox;
@@ -73,7 +85,9 @@ namespace scrum
     boost::filesystem3::path cookiedir;
     boost::filesystem3::path cookief;
     boost::filesystem3::path of;
+    
     curlpp::Forms posts;
     
   };
 }
+#endif

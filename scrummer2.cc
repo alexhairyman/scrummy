@@ -20,3 +20,19 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+//#include "scrummer2.hh"
+
+namespace scrum
+{
+//  typedef const string propstr;
+//  _win32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-win-full.zip";
+//  _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin32-full.zip";
+//  _lin64 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin64-full.zip";
+//  _src = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14.1-source.zip";
+  
+//  _win32_name = "ScrumbleShip-0.14-win-full.zip";
+//  _lin32_name = "ScrumbleShip-0.14-lin32-full.zip";
+//  _lin64_name = "ScrumbleShip-0.14-lin64-full.zip";
+//  _src_name = "ScrumbleShip-0.14.1-source.zip";
+}

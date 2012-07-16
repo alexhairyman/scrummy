@@ -1,13 +1,4 @@
-#~ finds curlpp
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
-#~ 
+#~ finds fontconfig
 
 set(FONTCONFIG_FIND_NAMES fontconfig libfontconfig)
 
@@ -16,7 +7,7 @@ set(FONTCONFIG_INCLUDE_SEARCHES "fontconfig.h")
 
 
 find_path(FONTCONFIG_INCLUDE_DIR NAMES ${FONTCONFIG_INCLUDE_SEARCHES} PATH_SUFFIXES ${FONTCONFIG_INCLUDE_PREFIX})
-find_library(FONTCONFIG_LIBRARY NAMES ${FONTCONFIG_FIND_NAMES} PATHS "/usr/local/lib")
+find_library(FONTCONFIG_LIBRARY NAMES ${FONTCONFIG_FIND_NAMES} PATHS "/usr/local/lib" "/usr/lib")
 
 set(FONTCONFIG_LIBRARIES ${FONTCONFIG_LIBRARY})
 set(FONTCONFIG_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})

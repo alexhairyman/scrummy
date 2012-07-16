@@ -20,6 +20,10 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+#ifndef __SCRUMCOMPS
+#define __SCRUMCOMPS
+
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Radio_Button.H>
@@ -34,25 +38,33 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <string>
 #include "drupalauth.hh"
+#include "scrummer2.hh"
+
 
 using namespace std;
 
 namespace scrum
 {
-  typedef const string propstr;
+//  typedef const string propstr;
   
-  propstr _win32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-win-full.zip";
-  propstr _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin32-full.zip";
-  propstr _lin64 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin64-full.zip";
-  propstr _src = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-source.zip";
-  enum versel
-  {
-    WIN32,
-    LIN32,
-    LIN64,
-    OSX
+//  propstr _win32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-win-full.zip";
+//  propstr _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin32-full.zip";
+//  propstr _lin64 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin64-full.zip";
+//  propstr _src = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14.1-source.zip";
+  
+//  propstr _win32_name = "ScrumbleShip-0.14-win-full.zip";
+//  propstr _lin32_name = "ScrumbleShip-0.14-lin32-full.zip";
+//  propstr _lin64_name = "ScrumbleShip-0.14-lin64-full.zip";
+//  propstr _src_name = "ScrumbleShip-0.14.1-source.zip";
+  
+//  enum versel
+//  {
+//    WIN32,
+//    LIN32,
+//    LIN64,
+//    SRC
     
-  };
+//  } _VERSEL;
 
   
   class Fl_Light_Output : public Fl_Light_Button
@@ -67,7 +79,7 @@ namespace scrum
   {
   public:
     scrumwin(int w, int h);
-    void setdrupalauth(drupalauth *d);
+    void setdrupalauth(scrum::drupalauth *d);
     void gatherdat();
     void go();
     versel getversel();
@@ -77,7 +89,8 @@ namespace scrum
     // gettin' down 'n' dirty!
     drupalauth* myd;
     Fl_Box* mainlbl;
-    Fl_Button* login_but;
+    Fl_Button* do_but;
+    Fl_Button* unzip_but;
     Fl_Secret_Input* password;
     Fl_Input* username;
     Fl_Light_Output* login_stat;
@@ -92,10 +105,13 @@ namespace scrum
     
     // call backs
     static void login_cb(Fl_Widget* w, void* v);
-    inline void login_cb_i();
+//    inline void login_cb_i();
+    
+    static void unzip_cb(Fl_Widget* w, void* v);
     
     // drupal stuff
     string _u, _p;
     versel vsl;
   };
 }
+#endif
