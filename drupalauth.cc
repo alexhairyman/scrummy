@@ -187,9 +187,10 @@ namespace scrum
     dc.setOpt(new curlpp::options::Url(_URL));
     dc.setOpt(new curlpp::options::HttpGet(true));
 //    ofs << "hello world" << endl;
-    cout << "hrmmm, doesn't appear to be flushing correctly" << endl;
+//    cout << "hrmmm, doesn't appear to be flushing correctly" << endl;
     dc.perform();
     ofs.flush();
+    hasdownloaded=true;
 //    ofs->close();
   }
   

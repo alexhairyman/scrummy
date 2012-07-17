@@ -62,6 +62,8 @@ namespace scrum
   // protected:
     static string getstringoffile(int plat);
     static string getstringofurl(int plat);
+    
+    bool hasdownloaded;
   private:
     int _V;
     string _URL;

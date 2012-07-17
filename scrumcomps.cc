@@ -66,6 +66,7 @@ namespace scrum
     
     unzip_but = new Fl_Button(10, 335, 220, 25, "&unzip");
     unzip_but->callback(unzip_cb, this);
+    unzip_but->deactivate();
     
     login_stat = new Fl_Light_Output(10, 270, 220, 25);
     
@@ -147,6 +148,10 @@ namespace scrum
               throw 8;
             }
           vv->myd->download();
+          if (vv->myd->hasdownloaded == true)
+            {
+              vv->unzip_but->activate();
+            }
           
         }
       else
