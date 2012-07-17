@@ -36,6 +36,7 @@ set_target_properties("SCRUMS"
   PREFIX "lib"
   OUTPUT_NAME "scrummy"
 )
+
 add_custom_target(incerbincer SOURCES "scrummer2.hh")
 #set_target_properties("SCRUMA"
 #  PROPERTIES

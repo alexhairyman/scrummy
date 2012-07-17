@@ -42,7 +42,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // Just some static stuffs
 
 using namespace std;
-//using namespace boost;
+using namespace boost;
 
 namespace scrum
 {
@@ -82,9 +82,18 @@ namespace scrum
     curlpp::Easy ec, dc;
     string s;
     bool _authed;
+    
+// I should move this up top, oh well
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 105000
+    boost::filesystem::path cookiedir;
+    boost::filesystem::path cookief;
+    boost::filesystem::path of;
+#else
     boost::filesystem3::path cookiedir;
     boost::filesystem3::path cookief;
     boost::filesystem3::path of;
+#endif
     
     curlpp::Forms posts;
     

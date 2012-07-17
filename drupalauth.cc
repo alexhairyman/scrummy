@@ -91,8 +91,12 @@ namespace scrum
     
   drupalauth::drupalauth() : ofs(&ofsb), ckout(&cookieout), complaintbox(&devinnull)
   {
+#if BOOST_VERSION >= 105000
+    cookiedir = boost::filesystem::path("_drupalauth");
+#else
     cookiedir = boost::filesystem3::path("_drupalauth");
-    boost::filesystem3::create_directory(cookiedir);
+#endif
+    boost::filesystem::create_directory(cookiedir);
     cookief /= cookiedir;
     cookief /= "drupalcookie.txt";
 
@@ -158,10 +162,21 @@ namespace scrum
   void drupalauth::download()
   {
 //    ofsb.open(of.native());
+#if BOOST_VERSION >= 105000
+    cout << boost::filesystem::current_path() << endl;
+#else
     cout << boost::filesystem3::current_path() << endl;
+#endif
+    
     cout << getstringoffile(getversel()) << endl;
     cout << getstringofurl(getversel()) << endl;
+    
+#if BOOST_VERSION >= 105000
+    of = boost::filesystem::path(getstringoffile(getversel()));
+#else
     of = boost::filesystem3::path(getstringoffile(getversel()));
+#endif
+    
     ofsb.open(of.native());
     seturl(getstringofurl(getversel()));
 //    ec.reset();
