@@ -8,6 +8,7 @@
 ***I_am_the_man***
 -----
 
+* 0.2.0: made much more stable, useing alert dialogs instead of errors
 * 0.1.0: Unzipping support, and updated
 * 0.0.6: Everything works quite well right now!
 
