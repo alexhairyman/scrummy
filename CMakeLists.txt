@@ -38,12 +38,14 @@ set_target_properties("SCRUMS"
 )
 
 add_custom_target(incerbincer SOURCES "scrummer2.hh")
+
 #set_target_properties("SCRUMA"
 #  PROPERTIES
 #  SUFFIX ".a"
 #  PREFIX "lib"
 #  OUTPUT_NAME "scrummy"
 #)
+
 message("${FONTCONFIG_LIBRARIES}")
 
 set(CMAKE_LINK_FLAGS "-L.")
