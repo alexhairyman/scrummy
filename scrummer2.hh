@@ -24,11 +24,15 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __SCRUMMER2
 #define __SCRUMMER2
 
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+#include <FL/fl_ask.H>
 #include "string"
 using namespace std;
 
 namespace scrum
 {
+  void FLalertbox(char *alert);
   
   enum versel
   {

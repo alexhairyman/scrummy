@@ -78,7 +78,7 @@ namespace scrum
   class scrumwin : public Fl_Window
   {
   public:
-    scrumwin(int w, int h);
+    scrumwin();
     void setdrupalauth(scrum::drupalauth *d);
     void gatherdat();
     void go();
@@ -95,6 +95,7 @@ namespace scrum
     Fl_Input* username;
     Fl_Light_Output* login_stat;
     Fl_Box* status;
+    Fl_Button* exit_but;
     
     // little menu for selection
     Fl_Group* versionselect;
@@ -105,8 +106,7 @@ namespace scrum
     
     // call backs
     static void login_cb(Fl_Widget* w, void* v);
-//    inline void login_cb_i();
-    
+    static void exit_cb(Fl_Widget* w, void* v);
     static void unzip_cb(Fl_Widget* w, void* v);
     
     // drupal stuff

@@ -19,7 +19,7 @@ find_package(FontConfig REQUIRED)
 add_definitions("-I.." "-I.")
 list(APPEND
   BUILTCOMPS
-  "scrumcomps.cc" "drupalauth.cc" "unzip.cc"
+  "scrumcomps.cc" "drupalauth.cc" "unzip.cc" "scrummer2.cc"
 )
 
 list(APPEND

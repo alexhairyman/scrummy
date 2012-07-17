@@ -53,9 +53,10 @@ namespace scrum
   
   // scrumwin stuff
   
-  scrumwin::scrumwin(int w=240, int h=390) : Fl_Window(w,h, "scrummer")
+  scrumwin::scrumwin() : Fl_Window(240,410, "scrummer")
   {
     begin();
+    
     
     mainlbl = new Fl_Box(10, 10, 220, 25, "scrummer");
     mainlbl->box(FL_OVAL_BOX);
@@ -67,6 +68,10 @@ namespace scrum
     unzip_but->callback(unzip_cb, this);
     
     login_stat = new Fl_Light_Output(10, 270, 220, 25);
+    
+    exit_but = new Fl_Button(10, 365, 50, 25, "&exit");
+    exit_but->callback(exit_cb, this);
+    
     username = new Fl_Input(10,40,220,25);
     password = new Fl_Secret_Input(10,70,220,25);
     
@@ -85,6 +90,12 @@ namespace scrum
     show();
   }
   
+  void scrumwin::exit_cb(Fl_Widget *w, void *v)
+  {
+    scrumwin* vv = (scrumwin *) v;
+    exit(0);
+  }
+    
   void scrumwin::gatherdat()
   {
     _u = username->value();
@@ -148,14 +159,16 @@ namespace scrum
       switch (e)
         {
         case 8:
-          cout << "nothing selected" << endl;
-          terminate();
-          exit(99);
+//          cout << "nothing selected" << endl;
+//          terminate();
+//          exit(99);
+          FLalertbox("Nothing selected");
           break;
         case 9:
-          cout << "not authed" << endl;
-          terminate();
-          exit (99);
+          FLalertbox("Not Authed - could mean invalid login information");
+//          cout << "not authed" << endl;
+//          terminate();
+//          exit (99);
           break;
         }
     }

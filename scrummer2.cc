@@ -21,10 +21,15 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//#include "scrummer2.hh"
+#include "scrummer2.hh"
 
 namespace scrum
 {
+  void FLalertbox(char* alert)
+  {
+    fl_alert(alert);
+  }
+
 //  typedef const string propstr;
 //  _win32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-win-full.zip";
 //  _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin32-full.zip";

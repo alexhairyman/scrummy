@@ -32,7 +32,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-  scrum::scrumwin *s = new scrum::scrumwin(240,390);
+  scrum::scrumwin *s = new scrum::scrumwin();
   scrum::drupalauth *d = new scrum::drupalauth();
   s->setdrupalauth(d);
   s->go();

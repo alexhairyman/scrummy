@@ -58,9 +58,10 @@ namespace scrum
       switch(e)
         {
         case 7:
-          cout << "no platform selected" << endl;
-          terminate();
-          exit(99);
+          FLalertbox("No platform selected");
+//          cout << "no platform selected" << endl;
+//          terminate();
+//          exit(99);
           break;
         }
     }
