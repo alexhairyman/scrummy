@@ -5,7 +5,6 @@
 - only works for full users (BOOM PUNK!)
 - Unzips
 
-***I_am_the_man***
 -----
 
 * 0.2.0: made much more stable, useing alert dialogs instead of errors
