@@ -32,7 +32,7 @@ using namespace std;
 
 namespace scrum
 {
-  void FLalertbox(char *alert);
+  void FLalertbox(const char *alert);
   
   enum versel
   {

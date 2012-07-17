@@ -2,8 +2,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(scrummy)
 
-message("READ THE README!")
+#set(CMAKE_CXX_FLAGS "-static")
 
+message("READ THE README!")
 list(APPEND
   CMAKE_MODULE_PATH
   "${CMAKE_SOURCE_DIR}/cmake"
@@ -27,28 +28,27 @@ list(APPEND
   ${X11_Xft_LIB} ${X11_Xext_LIB} ${X11_Xinerama_LIB}
 )
 
-add_library("SCRUMS" SHARED ${BUILTCOMPS})
-#add_library("SCRUMA" STATIC ${BUILTCOMPS})
+#add_library("SCRUMS" SHARED ${BUILTCOMPS})
+add_library("SCRUMA" STATIC ${BUILTCOMPS})
 
-set_target_properties("SCRUMS"
-  PROPERTIES
-  SUFFIX ".so"
-  PREFIX "lib"
-  OUTPUT_NAME "scrummy"
-)
-
-add_custom_target(incerbincer SOURCES "scrummer2.hh")
-
-#set_target_properties("SCRUMA"
+#set_target_properties("SCRUMS"
 #  PROPERTIES
-#  SUFFIX ".a"
+#  SUFFIX ".so"
 #  PREFIX "lib"
 #  OUTPUT_NAME "scrummy"
 #)
 
-message("${FONTCONFIG_LIBRARIES}")
+add_custom_target(incerbincer SOURCES "scrummer2.hh")
+
+set_target_properties("SCRUMA"
+  PROPERTIES
+  SUFFIX ".a"
+  PREFIX "lib"
+  OUTPUT_NAME "scrummy"
+)
+
 
 set(CMAKE_LINK_FLAGS "-L.")
 add_executable("scrummer" "scrummer.cc")
 #target_link_libraries("scrummer" "SCRUMS" "fltk" "Xft" "ICE" "Xext" "X11" "boost_filesystem" "boost_system" "boost_iostreams" "curlpp" "Xinerama")
-target_link_libraries("scrummer" "SCRUMS" ${CURLPP_LIBRARIES} ${Boost_LIBRARIES} ${X11_LIBRARIES} ${FLTK_LIBRARIES} ${FONTCONFIG_LIBRARIES} "PocoFoundation" "PocoZip")
+target_link_libraries("scrummer" "SCRUMA" ${CURLPP_LIBRARIES} ${Boost_LIBRARIES} ${X11_LIBRARIES} ${FLTK_LIBRARIES} ${FONTCONFIG_LIBRARIES} "PocoFoundation" "PocoZip")

@@ -2,6 +2,8 @@
 
 find_package(CURL REQUIRED)
 
+set(store_cfls ${CMAKE_FIND_LIBRARY_SUFFIXES})
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".so")
 set(CURLPP_FIND_NAMES curlpp libcurlpp)
 set(CURLPP_INCLUDE_PREFIX "curlpp/")
 #~ set(CURLPP_INCLUDE_SEARCHES "Easy.hpp" "cURLpp.hpp" "Info.hpp" "Infos.hpp" "Option.hpp" "Options.hpp" "Form.hpp")
@@ -18,5 +20,4 @@ include(${CMAKE_ROOT}/Modules/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(CURLpp DEFAULT_MSG CURLPP_LIBRARY CURLPP_INCLUDE_DIR)
 
 mark_as_advanced(CURLPP_LIBRARY CURLPP_INCLUDE_DIR)
-
-
+set(CMAKE_FIND_LIBRARY_SUFFIXES "${store_cfls}")

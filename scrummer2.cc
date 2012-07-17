@@ -25,7 +25,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace scrum
 {
-  void FLalertbox(char* alert)
+  void FLalertbox(const char* alert)
   {
     fl_alert(alert);
   }
