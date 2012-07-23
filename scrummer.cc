@@ -39,7 +39,9 @@ int main(int argc, char* argv[])
   Fl::run();
   ScrumbleUnzip *su = new ScrumbleUnzip;
   
-//  su->unzip(d->getstringoffile(d->getversel()));
+  scrum::scrummyconfigure * sc = new scrum::scrummyconfigure();
+  sc->populatesub();
+  su->unzip(d->getstringoffile(d->getversel()));
   delete(d);
   delete(s);
   delete(su);

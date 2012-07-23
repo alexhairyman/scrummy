@@ -23,6 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "scrumcomps.hh"
 #include "unzip.hh"
+#include "config.hh"
 
 using namespace std;
 
@@ -33,8 +34,7 @@ class scrummer
 {
 public:
   scrummer();
-  
-//private:
   scrum::drupalauth d;
   scrum::scrumwin * s;
+  scrum::scrummyconfigure * sc;
 };

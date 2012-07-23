@@ -1,0 +1,29 @@
+{
+  "config" : {
+    "version" : [0,15,2],
+    "versionstr" : "0.15",
+    "cache" : {
+      "username" : null,
+      "usertype" : null
+    },
+    "scrumble" : {
+      "available" : {
+          "win" : true,
+          "mac" : false,
+          "lin32" : false,
+          "src" : true,
+          "lin64" : true
+      },
+      "base" : "http://dynamic.scrumbleship.com/system/files",
+      "lin32" : "ScrumbleShip-${V}-lin32-full.zip",
+      "win" : "ScrumbleShip-${V}-win-full.zip",
+      "lin64" : "ScrumbleShip-${V}-lin64-full.zip",
+      "src" : "ScrumbleShip-${VS}-source.zip"
+    }
+  },
+  "substitutions" : [
+    { "name" : "V", "V" : "0.15" , "enabled" : true},
+    { "name" : "VS", "VS" : "0.15.2" , "enabled" : true}
+  ]
+}
+
