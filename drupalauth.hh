@@ -32,10 +32,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 #include <boost/filesystem.hpp>
-#include <boost/iostreams/stream_buffer.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/device/file.hpp>
-#include <boost/iostreams/device/null.hpp>
+//#include <boost/iostreams/stream_buffer.hpp>
+//#include <boost/iostreams/stream.hpp>
+//#include <boost/iostreams/device/file.hpp>
+//#include <boost/iostreams/device/null.hpp>
+#include <iostream>
+#include <fstream>
 #include "scrummer2.hh"
 
 #include <string>
@@ -44,8 +46,16 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std;
 using namespace boost;
 
+size_t null_write_callback(char * dat, size_t sizeofo, size_t count, void* f);
+
 namespace scrum
 {
+  class nullsink : public streambuf
+  {
+  public:
+    int overflow(int c);
+  };
+
   class drupalauth
   {
   public:
@@ -68,18 +78,18 @@ namespace scrum
     int _V;
     string _URL;
     curlpp::Forms sdd;
-    boost::iostreams::stream_buffer<boost::iostreams::file_sink> ofsb;
-    boost::iostreams::stream_buffer<boost::iostreams::file_sink> cookieout;
-    boost::iostreams::stream_buffer<boost::iostreams::null_sink> devinnull;
+//    boost::iostreams::stream_buffer<boost::iostreams::file_sink> ofsb;
+//    boost::iostreams::stream_buffer<boost::iostreams::file_sink> cookieout;
+//    boost::iostreams::stream_buffer<boost::iostreams::null_sink> devinnull;
     
     ofstream mofs;
 
 //    boost::iostreams::stream<boost::iostreams::file_sink> ofs;
 //    boost::iostreams::stream<boost::iostreams::file_sink> ckout;
 //    boost::iostreams::stream<boost::iostreams::null_sink> complaintbox;
-    iostream ofs;
-    iostream ckout;
-    iostream complaintbox;
+    ofstream * ofs;
+    ofstream * ckout;
+    ostream * complaintbox;
     
     curlpp::Easy ec, dc;
     string s;

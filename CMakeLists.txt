@@ -12,7 +12,7 @@ list(APPEND
 
 set(Boost_USE_STATIC_LIBS "ON")
 find_package(X11 REQUIRED COMPONENTS Xinerama Xft Xext X11 ICE)
-find_package(Boost REQUIRED COMPONENTS filesystem system iostreams)
+find_package(Boost REQUIRED COMPONENTS filesystem system)
 find_package(FLTK REQUIRED)
 find_package(CURLpp REQUIRED)
 find_package(FontConfig REQUIRED)

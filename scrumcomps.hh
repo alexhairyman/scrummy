@@ -34,7 +34,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <FL/Fl_Secret_Input.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Box.H>
-#include <boost/thread.hpp>
 
 #include <string>
 #include "drupalauth.hh"

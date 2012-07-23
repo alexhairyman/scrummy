@@ -26,6 +26,16 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define out(a) cout << #a << ": " << a << '\n'; cout.flush()
 namespace scrum
 {
+//  int nullsink::overflow(int c)
+//  {
+//    return c;
+//    sbumpc();
+//  }
+  
+  size_t null_write_callback(char * dat, size_t sizeofo, size_t count, void* f)
+  {
+    return count;
+  }
   
   void drupalauth::setv(int V)
   {
@@ -90,8 +100,11 @@ namespace scrum
     }
   }
     
-  drupalauth::drupalauth() : ofs(&ofsb), ckout(&cookieout), complaintbox(&devinnull)
+  drupalauth::drupalauth() //: complaintbox(devinnull) // : ofs(&ofsb), ckout(&cookieout), complaintbox(&devinnull)
+  
   {
+    
+//    complaintbox = new ostream(devinnull);
 #if BOOST_VERSION >= 105000
     cookiedir = boost::filesystem::path("_drupalauth");
 #else
@@ -101,8 +114,8 @@ namespace scrum
     cookief /= cookiedir;
     cookief /= "drupalcookie.txt";
 
-    cookieout.open(cookief.native());
-    devinnull.open(boost::iostreams::null_sink());
+    ckout = new ofstream;
+    ckout->open(cookief.native().c_str());
 
 //    ckout.open(cookief.native());
 //    complaintbox.open(boost::iostreams::null_sink());
@@ -113,25 +126,18 @@ namespace scrum
   
   void drupalauth::login(string user, string password)
   {
-    ofs.rdbuf(&ofsb);
-    ckout.rdbuf(&cookieout);
-  
     ec.setOpt(new curlpp::options::Url("http://dynamic.scrumbleship.com/user/login"));
-    // ec.setOpt(new curlpp::options::Url("127.0.1.1/drupal7/?q=user/login"));
     ec.setOpt(new curlpp::options::Post(true));
     ec.setOpt(new curlpp::options::FollowLocation(true));
     ec.setOpt(new curlpp::options::CookieJar(cookief.native()));
-//    ec.setOpt(new curlpp::options::CookieJar("cookie.txt"));
     ec.setOpt(new curlpp::options::CookieFile(cookief.native()));
-//    ec.setOpt(new curlpp::options::CookieFile("cookie.txt"));
-    ec.setOpt(new curlpp::options::WriteStream(&complaintbox));
+//    ec.setOpt(new curlpp::options::WriteStream(complaintbox));
+    ec.setOpt(new curlpp::OptionTrait<void*, CURLOPT_WRITEDATA>(0));
+    ec.setOpt(new curlpp::options::WriteFunctionCurlFunction(null_write_callback));
     posts.push_back(new curlpp::FormParts::Content("name",user));
     posts.push_back(new curlpp::FormParts::Content("pass",password));
     posts.push_back(new curlpp::FormParts::Content("form_id","user_login"));
     ec.setOpt(new curlpp::options::HttpPost(posts));
-    
-    list<string> mahcookies;
-    
     ec.perform();
     cout << "poop\n";
     cout.flush();
@@ -140,8 +146,9 @@ namespace scrum
     {
       for(list<string>::iterator it = cooks.begin(); it != cooks.end(); it++)
       {
-        ckout << *it;
-        ckout.flush();
+        cout << *it << endl;
+        *ckout << *it;
+        ckout->flush();
       }
       _authed = true;
     }
@@ -163,6 +170,7 @@ namespace scrum
   void drupalauth::download()
   {
 //    ofsb.open(of.native());
+    ofs = new ofstream;
 #if BOOST_VERSION >= 105000
     cout << boost::filesystem::current_path() << endl;
 #else
@@ -177,19 +185,14 @@ namespace scrum
 #else
     of = boost::filesystem3::path(getstringoffile(getversel()));
 #endif
-    
-    ofsb.open(of.native());
+    ofs->open(of.native().c_str());
     seturl(getstringofurl(getversel()));
-//    ec.reset();
-//    dc.setOpt(new curlpp::options::CookieJar("cookie.txt"));
-    dc.setOpt(new curlpp::options::CookieFile(cookief.native()));
-    dc.setOpt(new curlpp::options::WriteStream(&ofs));
+    dc.setOpt(new curlpp::options::CookieFile(cookief.native().c_str()));
+    dc.setOpt(new curlpp::options::WriteStream(ofs));
     dc.setOpt(new curlpp::options::Url(_URL));
     dc.setOpt(new curlpp::options::HttpGet(true));
-//    ofs << "hello world" << endl;
-//    cout << "hrmmm, doesn't appear to be flushing correctly" << endl;
     dc.perform();
-    ofs.flush();
+    ofs->flush();
     hasdownloaded=true;
 //    ofs->close();
   }
