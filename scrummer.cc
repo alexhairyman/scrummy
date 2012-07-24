@@ -32,19 +32,19 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-  scrum::scrumwin *s = new scrum::scrumwin();
-  scrum::drupalauth *d = new scrum::drupalauth();
-  s->setdrupalauth(d);
-  s->go();
-  Fl::run();
-  ScrumbleUnzip *su = new ScrumbleUnzip;
+//  scrum::scrumwin *s = new scrum::scrumwin();
+//  scrum::drupalauth *d = new scrum::drupalauth();
+//  s->setdrupalauth(d);
+//  s->go();
+//  Fl::run();
+//  ScrumbleUnzip *su = new ScrumbleUnzip;
   
   scrum::scrummyconfigure * sc = new scrum::scrummyconfigure();
-  sc->populatesub();
-  su->unzip(d->getstringoffile(d->getversel()));
-  delete(d);
-  delete(s);
-  delete(su);
+  sc->populateconf();
+//  su->unzip(d->getstringoffile(d->getversel()));
+//  delete(d);
+//  delete(s);
+//  delete(su);
   out("SDF");
   return 0;
 
