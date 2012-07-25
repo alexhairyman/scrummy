@@ -45,12 +45,13 @@ namespace scrum
   typedef const string propstr;
   
   propstr _win32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.15-win-full.zip";
-  propstr _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.15-lin32-full.zip";
+//  propstr _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.15-lin32-full.zip";
+  propstr _lin32 = "http://127.0.0.1/ScrumbleShip-0.15.2-lin32-full.zip";
   propstr _lin64 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.15-lin64-full.zip";
   propstr _src = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.15.0-source.zip";
   
   propstr _win32_name = "ScrumbleShip-0.15-win-full.zip";
-  propstr _lin32_name = "ScrumbleShip-0.15-lin32-full.zip";
+  propstr _lin32_name = "ScrumbleShip-0.15.2-lin32-full.zip";
   propstr _lin64_name = "ScrumbleShip-0.15-lin64-full.zip";
   propstr _src_name = "ScrumbleShip-0.15.0-source.zip";
 }

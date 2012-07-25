@@ -38,8 +38,7 @@ int main(int argc, char* argv[])
   s->go();
   Fl::run();
   ScrumbleUnzip *su = new ScrumbleUnzip;
-  
-//  su->unzip(d->getstringoffile(d->getversel()));
+
   delete(d);
   delete(s);
   delete(su);

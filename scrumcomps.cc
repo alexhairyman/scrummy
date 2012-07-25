@@ -73,6 +73,9 @@ namespace scrum
     exit_but = new Fl_Button(10, 365, 50, 25, "&exit");
     exit_but->callback(exit_cb, this);
     
+    run_but = new Fl_Button(70, 365, 50, 25, "&run!");
+    run_but->callback(run_cb, this);
+    
     username = new Fl_Input(10,40,220,25);
     password = new Fl_Secret_Input(10,70,220,25);
     
@@ -84,7 +87,7 @@ namespace scrum
     rlin64 = new Fl_Radio_Button(20,160,200,20,"Linux 64 bit version");
     rlin32 = new Fl_Radio_Button(20,190,200,20,"Linux 32 bit version");
     
-    rlin32->deactivate();
+//    rlin32->deactivate();
     
     versionselect->end();
     end();
@@ -94,6 +97,7 @@ namespace scrum
   void scrumwin::exit_cb(Fl_Widget *w, void *v)
   {
     scrumwin* vv = (scrumwin *) v;
+    vv->hide();
     exit(0);
   }
     
@@ -107,6 +111,40 @@ namespace scrum
   void scrumwin::setdrupalauth(drupalauth *d)
   {
     myd = d;
+  }
+ 
+  void scrumwin::run_cb(Fl_Widget *w, void *v)
+  {
+    scrumwin * vv = (scrumwin *) v;
+    vv->scrumbledir = "Scrumble";
+    BIO::path p;
+    BIO::directory_iterator di (vv->scrumbledir);
+    BIO::directory_iterator edi;
+    ushort sizeshort = 0;
+    for (di; di != edi; ++di)
+      {
+        cout << "got path: " << di->path().filename() << endl;
+        p += "Scrumble/";
+        p += di->path().filename();
+        p += "/";
+        BIO::directory_iterator scrumitr(p);
+        for (scrumitr; scrumitr != edi; ++scrumitr)
+          {
+            cout << "got path: " << scrumitr->path().filename() << endl;
+            if (scrumitr->path().filename() == "scrumbleship32")
+              {
+                cout << "got executable!" << endl;
+                vv->scrumblebinary += p;
+                vv->scrumblebinary += "scrumbleship32";
+                BIO::perms experms = BIO::others_exe | BIO::owner_exe | BIO::group_exe | BIO::group_read | BIO::owner_read | BIO::others_read;
+                cout << "setting permissions" << endl;
+                BIO::permissions(vv->scrumblebinary, experms);
+                std::system(vv->scrumblebinary.c_str());
+              }
+          }
+      }
+    
+    
   }
   
   void scrumwin::unzip_cb( Fl_Widget *w, void *v)

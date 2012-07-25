@@ -24,6 +24,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __SCRUMCOMPS
 #define __SCRUMCOMPS
 
+#include <cstdlib>
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Radio_Button.H>
@@ -35,6 +36,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Box.H>
 
+#include <boost/filesystem.hpp>
+#include <boost/version.hpp>
+
 #include <string>
 #include "drupalauth.hh"
 #include "scrummer2.hh"
@@ -44,27 +48,6 @@ using namespace std;
 
 namespace scrum
 {
-//  typedef const string propstr;
-  
-//  propstr _win32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-win-full.zip";
-//  propstr _lin32 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin32-full.zip";
-//  propstr _lin64 = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14-lin64-full.zip";
-//  propstr _src = "http://dynamic.scrumbleship.com/system/files/ScrumbleShip-0.14.1-source.zip";
-  
-//  propstr _win32_name = "ScrumbleShip-0.14-win-full.zip";
-//  propstr _lin32_name = "ScrumbleShip-0.14-lin32-full.zip";
-//  propstr _lin64_name = "ScrumbleShip-0.14-lin64-full.zip";
-//  propstr _src_name = "ScrumbleShip-0.14.1-source.zip";
-  
-//  enum versel
-//  {
-//    WIN32,
-//    LIN32,
-//    LIN64,
-//    SRC
-    
-//  } _VERSEL;
-
   
   class Fl_Light_Output : public Fl_Light_Button
   {
@@ -86,27 +69,40 @@ namespace scrum
     
   private:
     // gettin' down 'n' dirty!
-    drupalauth* myd;
-    Fl_Box* mainlbl;
-    Fl_Button* do_but;
-    Fl_Button* unzip_but;
-    Fl_Secret_Input* password;
-    Fl_Input* username;
-    Fl_Light_Output* login_stat;
-    Fl_Box* status;
-    Fl_Button* exit_but;
+    drupalauth * myd;
+    Fl_Box * mainlbl;
+    Fl_Button * do_but;
+    Fl_Button * unzip_but;
+    Fl_Button * run_but;
+    Fl_Secret_Input * password;
+    Fl_Input * username;
+    Fl_Light_Output * login_stat;
+    Fl_Box * status;
+    Fl_Button * exit_but;
     
     // little menu for selection
-    Fl_Group* versionselect;
-    Fl_Radio_Button* rlin32;
-    Fl_Radio_Button* rwin32;
-    Fl_Radio_Button* rsrc;
-    Fl_Radio_Button* rlin64;
+    Fl_Group * versionselect;
+    Fl_Radio_Button * rlin32;
+    Fl_Radio_Button * rwin32;
+    Fl_Radio_Button * rsrc;
+    Fl_Radio_Button * rlin64;
+    
+  public:
+#ifdef BOOST_VERSION >= 105000
+    boost::filesystem::path scrumbledir;
+    boost::filesystem::path scrumblebinary;
+#define BIO boost::filesystem
+#else
+#define BIO boost::filesystem3
+    boost::filesystem3::path scrumbledir;
+    boost::filesystem3::path scrumblebinary;
+#endif
     
     // call backs
-    static void login_cb(Fl_Widget* w, void* v);
-    static void exit_cb(Fl_Widget* w, void* v);
-    static void unzip_cb(Fl_Widget* w, void* v);
+    static void login_cb(Fl_Widget * w, void * v);
+    static void exit_cb(Fl_Widget * w, void * v);
+    static void unzip_cb(Fl_Widget * w, void * v);
+    static void run_cb(Fl_Widget * w, void * v);
     
     // drupal stuff
     string _u, _p;
