@@ -5,6 +5,10 @@
 - only works for full users (BOOM PUNK!)
 - Unzips
 
+Todo:
+
+- get the Json configuration working well, need a way to do makefile type replaces
+
 -----
 
 * 0.2.2: no more boost iostreams!

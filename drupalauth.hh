@@ -32,10 +32,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 #include <boost/filesystem.hpp>
-//#include <boost/iostreams/stream_buffer.hpp>
-//#include <boost/iostreams/stream.hpp>
-//#include <boost/iostreams/device/file.hpp>
-//#include <boost/iostreams/device/null.hpp>
 #include <iostream>
 #include <fstream>
 #include "scrummer2.hh"
@@ -69,7 +65,6 @@ namespace scrum
     void setv(int V);
     int getversel();
     
-  // protected:
     static string getstringoffile(int plat);
     static string getstringofurl(int plat);
     
@@ -77,20 +72,10 @@ namespace scrum
   private:
     int _V;
     string _URL;
-    curlpp::Forms sdd;
-//    boost::iostreams::stream_buffer<boost::iostreams::file_sink> ofsb;
-//    boost::iostreams::stream_buffer<boost::iostreams::file_sink> cookieout;
-//    boost::iostreams::stream_buffer<boost::iostreams::null_sink> devinnull;
-    
     ofstream mofs;
-
-//    boost::iostreams::stream<boost::iostreams::file_sink> ofs;
-//    boost::iostreams::stream<boost::iostreams::file_sink> ckout;
-//    boost::iostreams::stream<boost::iostreams::null_sink> complaintbox;
     ofstream * ofs;
     ofstream * ckout;
     ostream * complaintbox;
-    
     curlpp::Easy ec, dc;
     string s;
     bool _authed;
