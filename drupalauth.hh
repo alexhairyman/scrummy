@@ -46,39 +46,32 @@ size_t null_write_callback(char * dat, size_t sizeofo, size_t count, void* f);
 
 namespace scrum
 {
-  class nullsink : public streambuf
-  {
-  public:
-    int overflow(int c);
-  };
-
   class drupalauth
   {
   public:
     drupalauth();
     ~drupalauth();
     
-    void download();
-    void login(string user, string pass);
-    bool isauthed();
-    void seturl(string setto);
-    void setv(int V);
-    int getversel();
+    void Download();
+    void Login(string user, string pass);
+    bool is_authed();
+    bool has_downloaded();
+    void SetUrl(string setto);
+    void SetVersion(int V);
+    int GetSelectedVersion();
     
-    static string getstringoffile(int plat);
-    static string getstringofurl(int plat);
+    static string GetStringOfFile(int plat);
+    static string GetStringOfUrl(int plat);
     
-    bool hasdownloaded;
   private:
-    int _V;
-    string _URL;
-    ofstream mofs;
-    ofstream * ofs;
-    ofstream * ckout;
-    ostream * complaintbox;
-    curlpp::Easy ec, dc;
-    string s;
-    bool _authed;
+    bool has_downloaded_;
+    int selected_version_;
+    string url_;
+    ofstream * download_stream_;
+    ofstream * cookie_out_;
+    ostream * complaint_box_;
+    curlpp::Easy login_cp_, download_cp_;
+    bool is_authed_;
     
 // I should move this up top, oh well
 #include <boost/version.hpp>

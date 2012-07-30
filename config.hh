@@ -6,7 +6,6 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <map>
 #include <vector>
 #include <scrummer2.hh>
 
@@ -16,48 +15,87 @@ using namespace std;
 #define getjt(type, toget) ((json::type) toget)
 #define getjval(type, toget) ((json::type) toget).Value()
 
-namespace scrum {
+namespace scrum 
+{
 
-  struct configuration
+  namespace conf
   {
-    // vars that map to values in json
-    map<string, string> subvars; // [subs]
-    map<string, bool> available_plats; // [config][scrumble][available]
-    map<string, string> urls; // [config][scrumble][urls]
-    string versionstr; // [config][versionstr]
-    string versionlong; // [config][versionlong]
-    int version; // [config][version]
+    struct Sub // damnit it's too hard to write substitutions out all the time!
+    {
+      string name;
+      string value;
+      bool enabled;
+    };
     
-    json::Object getconf(); // get the root object for saving
-  };
+    struct Platform
+    {
+      string name;
+      string filename;
+      bool available;
+      int platformint;
+      
+//      string CompleteUrl(string base); // Do I need this
+    };
+    
+    class Configuration
+    {
+    public:
+//      Platform& operator[] (const int platformint);
+//      Platform& operator[] (const char* index);
+      string ConfigureString(string input);
+      Platform GetPlat(const int index);
+      void ConfigureViaJson(json::Object rootobj);
+      
+    private:
+      void PopulateSubs();
+      void PopulatePlatforms();
+      Sub SubFromJsonObj(json::Object from);
+      Platform PlatformFromJsonObj(json::Object from);
 
-  string getfilestring(char * filename);
-  class scrummyconfigure
+      
+      json::Object json_object_;
+      vector<Platform> platforms_;
+      vector<Sub> subs_;
+      int version_;
+      string version_string_;
+    };
+  }
+
+
+  string ReadFileToString(const char *filename);
+  class ScrummyConfigure
   {
   public:
-    scrummyconfigure();
+    ScrummyConfigure();
     
     /* will be something like 0x00150200 0xAABBCCDD
       where AA = major eg "0".15.2 BB = release 0."15".2
       CC = minor 0.15."02" and DD means squat... yup */
-    int get_versionnum();
+    int GetVersion();
     string get_versionstring(bool retlong = false); // "0.15" or "0.15.2"
-    bool get_lin32_available();
-    bool get_lin64_available();
-    bool get_win_available();
-    bool get_mac_available();
-    bool get_src_available();
-    unsigned short populateconf(); // populates the configuration
+    
+    bool Linux32Available();
+    string Linux32Url();
+    
+    bool Linux64Available();
+    string Linux64Url();
+    
+    bool WindowsAvailable();
+    string WindowsUrl();
+    
+    bool MacAvailable();
+    string MacUrl;
+    
+    bool SourceAvailable();
+    string SourceUrl();
+    
+    void PopulateConf(); // populates the configuration
 
   private:
-    void populatedata(configuration * topop);
-    string dosub(string input); // actually substitutes the strings
-    unsigned short populatesub(json::Array *subarray);
-    configuration * theconf;
-    
-    json::Reader * jread;
-    json::Object * robj;
-    stringstream * dstream;
+    json::Reader * json_reader_;
+    json::Object * root_obj_;
+    stringstream * read_stream_;
+    conf::Configuration * conf_;
     
   };
 }

@@ -6,7 +6,7 @@
 using namespace json;
 namespace scrum
 {
-  string getfilestring(char *filename)
+  string ReadFileToString(const char *filename)
   {
     ifstream * infile = new ifstream;
     infile->open(filename);
@@ -21,88 +21,73 @@ namespace scrum
     
     delete(infile);
     return *tempdata;
-    
   }
   
-  scrummyconfigure::scrummyconfigure()
+  //
+  // conf::Configuration stuffs
+  //
+
+  conf::Sub conf::Configuration::SubFromJsonObj(Object from)
   {
-    jread = new json::Reader;
-    dstream = new stringstream;
-    robj = new json::Object;
-    dstream->str(getfilestring("config.json"));
-    jread->Read(*robj, *dstream);
-    theconf = new configuration;
+    conf::Sub temp_sub;
+    temp_sub.enabled = gj(Boolean, from["enabled"]);
+    temp_sub.name = gj(String, from["name"]);
+    temp_sub.value = gj(String, from["value"]);
+    return temp_sub;
   }
   
-  unsigned short scrummyconfigure::populatesub(Array * subarray)
+  conf::Platform conf::Configuration::PlatformFromJsonObj(Object from)
   {
-    Array & ar = *subarray;
-    unsigned short totalenabled;
-    
-    map<string, string> mahmap;
-    mahmap["herro"] = "goodbye";
-    cout << endl;
-    cout << mahmap["herro"] << endl;
-    
-    
-    for (int i = 0; i < ar.Size(); i++)
-      {
-        char * prefix;
-        string tkey = gj(String, ar[i]["name"]);
-        string cval = gj(String, ar[i][tkey.c_str()]);
-        if (gj(Boolean, ar[i]["enabled"]) == true)
-          {
-            
-            mahmap[tkey] = cval;
-            prefix = "enabling :";
-            totalenabled++;
-          }
-        else
-          {
-            prefix = "not enabling :";
-          }
-        cout << setw(16) << left << prefix << setw(15) << tkey << " : " << mahmap[tkey] << endl;
-      }
-    cout << "Attempting to write to submap " << endl;
-    theconf->subvars = mahmap;
-    return totalenabled;
-  }
-  
-  string scrummyconfigure::dosub(string input)
-  {
-    
+    conf::Platform temp_platform;
+    temp_platform.name = gj(String, from["name"]);
+    temp_platform.filename = gj(String, from["file"]);
+    temp_platform.available = gj(Boolean, from["eanbled"]);
+    return temp_platform;
   }
 
-  void scrummyconfigure::populatedata(configuration *topop)
+  void conf::Configuration::PopulateSubs()
   {
-    configuration & tconf = *topop;
-    Object j = *robj;
-    
-    // ready.... set.... GO!
-    Array sarray = j["subs"];
-    populatesub(&sarray);
-    // simple stuff, straight forward
-    
-    tconf.version = gj(Number, j["config"]["version"]);
-    tconf.versionlong = gj(String, j["config"]["versionlong"]);
-    tconf.versionstr = gj(String, j["config"]["versionstr"]);
-    
-    // a little more difficult, this is an object for platforms
-    for (int i = 0; i < gt(Array, j["config"]["available"]).Size(); i++)
+    for (int i = 0; i < gt(Array, json_object_["subs"]).Size(); i++)
       {
-        Object& tobj = j["config"]["available"][i];
-        
-        cout << "Platform: " << gj(String, tobj["name"]) << setw(20) << setfill('=') << ""
-             << setfill(' ') << endl;
-        cout << "enabled :" <<  gj(Boolean, tobj["enabled"]) << endl;
-        cout << "url :" << dosub((gj(String, tobj["url"])));
+        Object tempobj = gt(Object, json_object_["subs"][i]);
+        subs_.push_back(SubFromJsonObj(tempobj));
       }
-    
-    
   }
   
-  unsigned short scrummyconfigure::populateconf()
+  void conf::Configuration::PopulatePlatforms()
   {
-    populatedata(theconf);
+    for (int i = 0; i < gt(Array,json_object_["config"]["scrumble"]["available"]).Size(); i++ )
+      {
+        Object tempobj = gt(Object, json_object_["config"]["scrumble"]["available"][i]);
+        platforms_.push_back(PlatformFromJsonObj(tempobj));
+      }
   }
+
+  void conf::Configuration::ConfigureViaJson(Object rootobj)
+  {
+    json_object_ = rootobj;
+    PopulateSubs();
+    PopulatePlatforms();
+  }
+  
+  conf::Platform conf::Configuration::GetPlat(const int index)
+  {
+    return this->platforms_.at(index);
+  }
+  
+
+  ScrummyConfigure::ScrummyConfigure()
+  {
+    json_reader_ = new Reader;
+    read_stream_ = new stringstream;
+    root_obj_ = new Object;
+    read_stream_->str(ReadFileToString("config.json"));
+    json_reader_->Read(*root_obj_, *read_stream_);
+  }
+  
+  void ScrummyConfigure::PopulateConf()
+  {
+    conf_->ConfigureViaJson(*root_obj_);
+  }
+
 }

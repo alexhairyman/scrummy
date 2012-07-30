@@ -57,43 +57,41 @@ namespace scrum
     begin();
     
     
-    mainlbl = new Fl_Box(10, 10, 220, 25, "scrummer");
-    mainlbl->box(FL_OVAL_BOX);
+    main_label_ = new Fl_Box(10, 10, 220, 25, "scrummer");
+    main_label_->box(FL_OVAL_BOX);
     
-    do_but = new Fl_Button(10, 305, 220, 25, "&login");
-    do_but->callback(login_cb, this);
+    do_but_ = new Fl_Button(10, 305, 220, 25, "&login");
+    do_but_->callback(Login_CB, this);
     
-    unzip_but = new Fl_Button(10, 335, 220, 25, "&unzip");
-    unzip_but->callback(unzip_cb, this);
-    unzip_but->deactivate();
+    unzip_but_ = new Fl_Button(10, 335, 220, 25, "&unzip");
+    unzip_but_->callback(Unzip_CB, this);
     
-    login_stat = new Fl_Light_Output(10, 270, 220, 25);
+    login_stat_ = new Fl_Light_Output(10, 270, 220, 25);
     
-    exit_but = new Fl_Button(10, 365, 50, 25, "&exit");
-    exit_but->callback(exit_cb, this);
+    exit_but_ = new Fl_Button(10, 365, 50, 25, "&exit");
+    exit_but_->callback(Exit_CB, this);
     
-    run_but = new Fl_Button(70, 365, 50, 25, "&run!");
-    run_but->callback(run_cb, this);
+    run_but_ = new Fl_Button(70, 365, 50, 25, "&run!");
+    run_but_->callback(Run_CB, this);
     
-    username = new Fl_Input(10,40,220,25);
-    password = new Fl_Secret_Input(10,70,220,25);
+    username_input_ = new Fl_Input(10,40,220,25);
+    password_input_ = new Fl_Secret_Input(10,70,220,25);
     
-    versionselect = new Fl_Group(10, 100, 220, 200);
-    versionselect->begin();
+    version_group_ = new Fl_Group(10, 100, 220, 200);
+    version_group_->begin();
     
-    rwin32 = new Fl_Radio_Button(20,100,200,20,"windows 32 bit version");
-    rsrc = new Fl_Radio_Button(20,130,200,20,"Source Code!");
-    rlin64 = new Fl_Radio_Button(20,160,200,20,"Linux 64 bit version");
-    rlin32 = new Fl_Radio_Button(20,190,200,20,"Linux 32 bit version");
+    win_radio_ = new Fl_Radio_Button(20,100,200,20,"windows 32 bit version");
+    src_radio_ = new Fl_Radio_Button(20,130,200,20,"Source Code!");
+    lin64_radio_ = new Fl_Radio_Button(20,160,200,20,"Linux 64 bit version");
+    lin32_radio_ = new Fl_Radio_Button(20,190,200,20,"Linux 32 bit version");
+
     
-//    rlin32->deactivate();
-    
-    versionselect->end();
+    version_group_->end();
     end();
     show();
   }
   
-  void scrumwin::exit_cb(Fl_Widget *w, void *v)
+  void scrumwin::Exit_CB(Fl_Widget *w, void *v)
   {
     scrumwin* vv = (scrumwin *) v;
     vv->hide();
@@ -102,92 +100,64 @@ namespace scrum
     
   void scrumwin::gatherdat()
   {
-    _u = username->value();
-    _p = password->value();
+    username_ = username_input_->value();
+    password_ = password_input_->value();
     
   }
   
   void scrumwin::setdrupalauth(drupalauth *d)
   {
-    myd = d;
+    this_drupalauth_ = d;
   }
  
-  void scrumwin::run_cb(Fl_Widget *w, void *v)
+  void scrumwin::Run_CB(Fl_Widget *w, void *v)
   {
     scrumwin * vv = (scrumwin *) v;
-    vv->scrumbledir = "Scrumble";
-    BIO::path p;
-    BIO::directory_iterator di (vv->scrumbledir);
-    BIO::directory_iterator edi;
-    ushort sizeshort = 0;
-    for (di; di != edi; ++di)
-      {
-        cout << "got path: " << di->path().filename() << endl;
-        p += "Scrumble/";
-        p += di->path().filename();
-        p += "/";
-        BIO::directory_iterator scrumitr(p);
-        for (scrumitr; scrumitr != edi; ++scrumitr)
-          {
-            cout << "got path: " << scrumitr->path().filename() << endl;
-            if (scrumitr->path().filename() == "scrumbleship32")
-              {
-                cout << "got executable!" << endl;
-                vv->scrumblebinary += p;
-                vv->scrumblebinary += "scrumbleship32";
-                BIO::perms experms = BIO::others_exe | BIO::owner_exe | BIO::group_exe | BIO::group_read | BIO::owner_read | BIO::others_read;
-                cout << "setting permissions" << endl;
-                BIO::permissions(vv->scrumblebinary, experms);
-                std::system(vv->scrumblebinary.c_str());
-              }
-          }
-      }
-    
-    
+#warning nothing here yet boys!
   }
   
-  void scrumwin::unzip_cb( Fl_Widget *w, void *v)
+  void scrumwin::Unzip_CB( Fl_Widget *w, void *v)
   {
     scrumwin * vv= (scrumwin *) v;
     ScrumbleUnzip *suck = new ScrumbleUnzip;
-    suck->unzip(vv->myd->getstringoffile(vv->myd->getversel()));
+    suck->unzip(vv->this_drupalauth_->GetStringOfFile(vv->this_drupalauth_->GetSelectedVersion()));
   }
 
-  void scrumwin::login_cb(Fl_Widget *w, void *v)
+  void scrumwin::Login_CB(Fl_Widget *w, void *v)
   {
     scrumwin* vv = (scrumwin*) v;
     vv->gatherdat();
-    vv->myd->login(vv->_u,vv->_p);
+    vv->this_drupalauth_->Login(vv->username_,vv->password_);
     
     try{
-      if(vv->myd->isauthed() == true)
+      if(vv->this_drupalauth_->is_authed() == true)
         {
-          vv->login_stat->toggle();
+          vv->login_stat_->toggle();
           vv->label("downloading");
           
-          if(vv->rlin32->value() == 1) {
-              vv->myd->setv(scrum::LIN32);
+          if(vv->lin32_radio_->value() == 1) {
+              vv->this_drupalauth_->SetVersion(scrum::LIN32);
               cout << "lin32" << endl;
             }
-          else if (vv->rwin32->value() == 1) {
-              vv->myd->setv(scrum::WIN32);
+          else if (vv->win_radio_->value() == 1) {
+              vv->this_drupalauth_->SetVersion(scrum::WIN32);
               cout << "win32" << endl;
             }
-          else if (vv->rlin64->value() == 1) {
-              vv->myd->setv(scrum::LIN64);
+          else if (vv->lin64_radio_->value() == 1) {
+              vv->this_drupalauth_->SetVersion(scrum::LIN64);
               cout << "lin64" << endl;
             }
-          else if (vv->rsrc->value() == 1) {
-              vv->myd->setv(scrum::SRC);
+          else if (vv->src_radio_->value() == 1) {
+              vv->this_drupalauth_->SetVersion(scrum::SRC);
               cout << "src" << endl;
             }
           else { 
               throw 8;
             }
-          vv->myd->download();
-          if (vv->myd->hasdownloaded == true)
+          vv->this_drupalauth_->Download();
+          if (vv->this_drupalauth_->has_downloaded() == true)
             {
-              vv->unzip_but->activate();
+              vv->unzip_but_->activate();
             }
           
         }
@@ -201,16 +171,10 @@ namespace scrum
       switch (e)
         {
         case 8:
-//          cout << "nothing selected" << endl;
-//          terminate();
-//          exit(99);
           FLalertbox("Nothing selected");
           break;
         case 9:
           FLalertbox("Not Authed - could mean invalid login information");
-//          cout << "not authed" << endl;
-//          terminate();
-//          exit (99);
           break;
         }
     }

@@ -36,5 +36,5 @@ public:
   scrummer();
   scrum::drupalauth d;
   scrum::scrumwin * s;
-  scrum::scrummyconfigure * sc;
+  scrum::ScrummyConfigure * sc;
 };

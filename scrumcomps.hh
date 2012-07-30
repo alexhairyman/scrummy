@@ -38,6 +38,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <boost/filesystem.hpp>
 #include <boost/version.hpp>
+#include <Poco/Foundation.h>
 
 #include <string>
 #include "drupalauth.hh"
@@ -69,26 +70,26 @@ namespace scrum
     
   private:
     // gettin' down 'n' dirty!
-    drupalauth * myd;
-    Fl_Box * mainlbl;
-    Fl_Button * do_but;
-    Fl_Button * unzip_but;
-    Fl_Button * run_but;
-    Fl_Secret_Input * password;
-    Fl_Input * username;
-    Fl_Light_Output * login_stat;
-    Fl_Box * status;
-    Fl_Button * exit_but;
+    drupalauth * this_drupalauth_;
+    Fl_Box * main_label_;
+    Fl_Button * do_but_;
+    Fl_Button * unzip_but_;
+    Fl_Button * run_but_;
+    Fl_Secret_Input * password_input_;
+    Fl_Input * username_input_;
+    Fl_Light_Output * login_stat_;
+    Fl_Box * status_;
+    Fl_Button * exit_but_;
     
     // little menu for selection
-    Fl_Group * versionselect;
-    Fl_Radio_Button * rlin32;
-    Fl_Radio_Button * rwin32;
-    Fl_Radio_Button * rsrc;
-    Fl_Radio_Button * rlin64;
+    Fl_Group * version_group_;
+    Fl_Radio_Button * lin32_radio_;
+    Fl_Radio_Button * win_radio_;
+    Fl_Radio_Button * src_radio_;
+    Fl_Radio_Button * lin64_radio_;
     
   public:
-#ifdef BOOST_VERSION >= 105000
+#if BOOST_VERSION >= 105000
     boost::filesystem::path scrumbledir;
     boost::filesystem::path scrumblebinary;
 #define BIO boost::filesystem
@@ -99,13 +100,13 @@ namespace scrum
 #endif
     
     // call backs
-    static void login_cb(Fl_Widget * w, void * v);
-    static void exit_cb(Fl_Widget * w, void * v);
-    static void unzip_cb(Fl_Widget * w, void * v);
-    static void run_cb(Fl_Widget * w, void * v);
+    static void Login_CB(Fl_Widget * w, void * v);
+    static void Exit_CB(Fl_Widget * w, void * v);
+    static void Unzip_CB(Fl_Widget * w, void * v);
+    static void Run_CB(Fl_Widget * w, void * v);
     
     // drupal stuff
-    string _u, _p;
+    string username_, password_;
     versel vsl;
   };
 }

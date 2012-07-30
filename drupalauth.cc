@@ -37,18 +37,18 @@ namespace scrum
     return count;
   }
   
-  void drupalauth::setv(int V)
+  void drupalauth::SetVersion(int V)
   {
     cout << V << endl;
-    _V = V;
+    selected_version_ = V;
   }
   
-  int drupalauth::getversel()
+  int drupalauth::GetSelectedVersion()
   {
-    return _V;
+    return selected_version_;
   }
 
-  string drupalauth::getstringoffile(int plat)
+  string drupalauth::GetStringOfFile(int plat)
   {
     try
     {
@@ -77,7 +77,7 @@ namespace scrum
     }
   }
   
-  string drupalauth::getstringofurl(int plat)
+  string drupalauth::GetStringOfUrl(int plat)
   {
     try
     {
@@ -114,8 +114,8 @@ namespace scrum
     cookief /= cookiedir;
     cookief /= "drupalcookie.txt";
 
-    ckout = new ofstream;
-    ckout->open(cookief.native().c_str());
+    cookie_out_ = new ofstream;
+    cookie_out_->open(cookief.native().c_str());
 
 //    ckout.open(cookief.native());
 //    complaintbox.open(boost::iostreams::null_sink());
@@ -124,76 +124,81 @@ namespace scrum
 //    ckout->rdbuf(&cookieout);
   }
   
-  void drupalauth::login(string user, string password)
+  void drupalauth::Login(string user, string password)
   {
-    ec.setOpt(new curlpp::options::Url("http://dynamic.scrumbleship.com/user/login"));
-    ec.setOpt(new curlpp::options::Post(true));
-    ec.setOpt(new curlpp::options::FollowLocation(true));
-    ec.setOpt(new curlpp::options::CookieJar(cookief.native()));
-    ec.setOpt(new curlpp::options::CookieFile(cookief.native()));
+    login_cp_.setOpt(new curlpp::options::Url("http://dynamic.scrumbleship.com/user/login"));
+    login_cp_.setOpt(new curlpp::options::Post(true));
+    login_cp_.setOpt(new curlpp::options::FollowLocation(true));
+    login_cp_.setOpt(new curlpp::options::CookieJar(cookief.native()));
+    login_cp_.setOpt(new curlpp::options::CookieFile(cookief.native()));
 //    ec.setOpt(new curlpp::options::WriteStream(complaintbox));
-    ec.setOpt(new curlpp::OptionTrait<void*, CURLOPT_WRITEDATA>(0));
-    ec.setOpt(new curlpp::options::WriteFunctionCurlFunction(null_write_callback));
+    login_cp_.setOpt(new curlpp::OptionTrait<void*, CURLOPT_WRITEDATA>(0));
+    login_cp_.setOpt(new curlpp::options::WriteFunctionCurlFunction(null_write_callback));
     posts.push_back(new curlpp::FormParts::Content("name",user));
     posts.push_back(new curlpp::FormParts::Content("pass",password));
     posts.push_back(new curlpp::FormParts::Content("form_id","user_login"));
-    ec.setOpt(new curlpp::options::HttpPost(posts));
-    ec.perform();
+    login_cp_.setOpt(new curlpp::options::HttpPost(posts));
+    login_cp_.perform();
     cout << "poop\n";
     cout.flush();
-    list<string> cooks = curlpp::infos::CookieList::get(ec);
+    list<string> cooks = curlpp::infos::CookieList::get(login_cp_);
     if (cooks.size() != 0)
     {
       for(list<string>::iterator it = cooks.begin(); it != cooks.end(); it++)
       {
         cout << *it << endl;
-        *ckout << *it;
-        ckout->flush();
+        *cookie_out_ << *it;
+        cookie_out_->flush();
       }
-      _authed = true;
+      is_authed_ = true;
     }
     else
-      _authed = false;
+      is_authed_ = false;
    
   }
   
-  void drupalauth::seturl(string setto)
+  void drupalauth::SetUrl(string setto)
   {
-    _URL = setto;
+    url_ = setto;
   }
   
-  bool drupalauth::isauthed()
+  bool drupalauth::is_authed()
   {
-    return _authed;
+    return is_authed_;
   }
   
-  void drupalauth::download()
+  bool drupalauth::has_downloaded()
+  {
+    return has_downloaded_;
+  }
+  
+  void drupalauth::Download()
   {
 //    ofsb.open(of.native());
-    ofs = new ofstream;
+    download_stream_ = new ofstream;
 #if BOOST_VERSION >= 105000
     cout << boost::filesystem::current_path() << endl;
 #else
     cout << boost::filesystem3::current_path() << endl;
 #endif
     
-    cout << getstringoffile(getversel()) << endl;
-    cout << getstringofurl(getversel()) << endl;
+    cout << GetStringOfFile(GetSelectedVersion()) << endl;
+    cout << GetStringOfUrl(GetSelectedVersion()) << endl;
     
 #if BOOST_VERSION >= 105000
-    of = boost::filesystem::path(getstringoffile(getversel()));
+    of = boost::filesystem::path(GetStringOfFile(GetSelectedVersion()));
 #else
     of = boost::filesystem3::path(getstringoffile(getversel()));
 #endif
-    ofs->open(of.native().c_str());
-    seturl(getstringofurl(getversel()));
-    dc.setOpt(new curlpp::options::CookieFile(cookief.native().c_str()));
-    dc.setOpt(new curlpp::options::WriteStream(ofs));
-    dc.setOpt(new curlpp::options::Url(_URL));
-    dc.setOpt(new curlpp::options::HttpGet(true));
-    dc.perform();
-    ofs->flush();
-    hasdownloaded=true;
+    download_stream_->open(of.native().c_str());
+    SetUrl(GetStringOfUrl(GetSelectedVersion()));
+    download_cp_.setOpt(new curlpp::options::CookieFile(cookief.native().c_str()));
+    download_cp_.setOpt(new curlpp::options::WriteStream(download_stream_));
+    download_cp_.setOpt(new curlpp::options::Url(url_));
+    download_cp_.setOpt(new curlpp::options::HttpGet(true));
+    download_cp_.perform();
+    download_stream_->flush();
+    has_downloaded_=true;
 //    ofs->close();
   }
   

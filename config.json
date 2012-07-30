@@ -6,19 +6,19 @@
     "scrumble" : {
       "plats" : ["win", "mac", "lin32", "lin64", "src"],
       "available" : [
-        {"name" : "win", "enabled" : true, "url" : "${BASE}ScrumbleShip-${V}-win-full.zip"},
-        {"name" : "mac", "enabled" : false, "url" : ""},
-        {"name" : "lin32", "enabled" : false, "url" : "${BASE}ScrumbleShip-${V}-lin32-full.zip"},
-        {"name" : "src", "enabled" : true, "url" : "${BASE}ScrumbleShip-${VS}-source.zip"},
-        {"name" : "lin64", "enabled" : true, "url" : "${BASE}ScrumbleShip-${V}-lin64-full.zip"}
+        {"name" : "win", "enabled" : true, "file" : "ScrumbleShip-${VL}-win-full.zip", "platformint" : 0},
+        {"name" : "mac", "enabled" : false, "file" : "", "platformint" : 1},
+        {"name" : "lin32", "enabled" : false, "file" : "ScrumbleShip-${VL}-lin32-full.zip", "platformint" : 2},
+        {"name" : "src", "enabled" : true, "file" : "ScrumbleShip-${VS}-source.zip", "platformint" : 3},
+        {"name" : "lin64", "enabled" : true, "file" : "ScrumbleShip-${VL}-lin64-full.zip", "platformint" : 4}
       ],
       "base" : "http://dynamic.scrumbleship.com/system/files"
     }
   },
   "subs" : [
-    { "name" : "VL", "VL" : "0.15" , "enabled" : true},
-    { "name" : "VS", "VS" : "0.15.2" , "enabled" : true},
-    { "name" : "UNAME", "UNAME" : "alexhairyman", "enabled" : false}
+    { "name" : "VL", "value" : "0.15" , "enabled" : true},
+    { "name" : "VS", "value" : "0.15.2" , "enabled" : true},
+    { "name" : "UNAME", "value" : "alexhairyman", "enabled" : false}
   ]
 }
 
