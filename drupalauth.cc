@@ -21,7 +21,6 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "drupalauth.hh"
-//#include "exception"
 
 #define out(a) cout << #a << ": " << a << '\n'; cout.flush()
 namespace scrum
@@ -37,31 +36,37 @@ namespace scrum
     return count;
   }
   
-  void drupalauth::SetVersion(int V)
+  void DrupalAuth::SetVersion(int V)
   {
     cout << V << endl;
     selected_version_ = V;
   }
   
-  int drupalauth::GetSelectedVersion()
+  int DrupalAuth::GetSelectedVersion()
   {
     return selected_version_;
   }
 
-  string drupalauth::GetStringOfFile(int plat)
+  string DrupalAuth::GetStringOfFile(int plat)
   {
     try
     {
+      string tempstring;
+      conf::Platform tempplat;
       if (plat == WIN32)
-        return _win32_name;
+        tempplat = this->configuration_.GetPlat(WIN32);
       else if (plat == LIN32)
-        return _lin32_name;
+        tempplat = this->configuration_.GetPlat(LIN32);
       else if (plat == LIN64)
-        return _lin64_name;
+        tempplat = this->configuration_.GetPlat(LIN64);
       else if (plat == SRC)
-        return _src_name;
+        tempplat = this->configuration_.GetPlat(SRC);
       else
         throw 7;
+      
+      tempstring = tempplat.filename;
+      cout << tempstring.size() << endl;
+      return tempstring;
     }
     catch(int e)
     {
@@ -77,18 +82,18 @@ namespace scrum
     }
   }
   
-  string drupalauth::GetStringOfUrl(int plat)
+  string DrupalAuth::GetStringOfUrl(int plat)
   {
     try
     {
       if(plat == WIN32)
-        return _win32;
+        return configuration_.GetPlat(WIN32).url;
       else if(plat == LIN32)
-        return _lin32;
+        return configuration_.GetPlat(LIN32).url;
       else if(plat == LIN64)
-        return _lin64;
+        return configuration_.GetPlat(LIN64).url;
       else if(plat == SRC)
-        return _src;
+        return configuration_.GetPlat(SRC).url;
       else
         throw 7;
     }
@@ -100,11 +105,10 @@ namespace scrum
     }
   }
     
-  drupalauth::drupalauth() //: complaintbox(devinnull) // : ofs(&ofsb), ckout(&cookieout), complaintbox(&devinnull)
-  
+  DrupalAuth::DrupalAuth()
   {
+    configuration_.PopulateConf();
     
-//    complaintbox = new ostream(devinnull);
 #if BOOST_VERSION >= 105000
     cookiedir = boost::filesystem::path("_drupalauth");
 #else
@@ -116,15 +120,9 @@ namespace scrum
 
     cookie_out_ = new ofstream;
     cookie_out_->open(cookief.native().c_str());
-
-//    ckout.open(cookief.native());
-//    complaintbox.open(boost::iostreams::null_sink());
-    
-//    ofs->rdbuf(&ofsb);
-//    ckout->rdbuf(&cookieout);
   }
   
-  void drupalauth::Login(string user, string password)
+  void DrupalAuth::Login(string user, string password)
   {
     login_cp_.setOpt(new curlpp::options::Url("http://dynamic.scrumbleship.com/user/login"));
     login_cp_.setOpt(new curlpp::options::Post(true));
@@ -157,22 +155,22 @@ namespace scrum
    
   }
   
-  void drupalauth::SetUrl(string setto)
+  void DrupalAuth::SetUrl(string setto)
   {
     url_ = setto;
   }
   
-  bool drupalauth::is_authed()
+  bool DrupalAuth::is_authed()
   {
     return is_authed_;
   }
   
-  bool drupalauth::has_downloaded()
+  bool DrupalAuth::has_downloaded()
   {
     return has_downloaded_;
   }
   
-  void drupalauth::Download()
+  void DrupalAuth::Download()
   {
 //    ofsb.open(of.native());
     download_stream_ = new ofstream;
@@ -202,7 +200,7 @@ namespace scrum
 //    ofs->close();
   }
   
-  drupalauth::~drupalauth()
+  DrupalAuth::~DrupalAuth()
   {
     out("die man");
     

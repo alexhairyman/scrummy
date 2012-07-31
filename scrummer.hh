@@ -34,7 +34,7 @@ class scrummer
 {
 public:
   scrummer();
-  scrum::drupalauth d;
+  scrum::DrupalAuth d;
   scrum::scrumwin * s;
   scrum::ScrummyConfigure * sc;
 };

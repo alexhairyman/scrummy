@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
 
   scrum::scrumwin *s = new scrum::scrumwin();
-  scrum::drupalauth *d = new scrum::drupalauth();
+  scrum::DrupalAuth *d = new scrum::DrupalAuth();
   s->setdrupalauth(d);
   s->go();
   Fl::run();

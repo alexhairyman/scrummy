@@ -7,12 +7,12 @@
       "plats" : ["win", "mac", "lin32", "lin64", "src"],
       "available" : [
         {"name" : "win", "enabled" : true, "file" : "ScrumbleShip-${VL}-win-full.zip", "platformint" : 0},
-        {"name" : "mac", "enabled" : false, "file" : "", "platformint" : 1},
-        {"name" : "lin32", "enabled" : false, "file" : "ScrumbleShip-${VL}-lin32-full.zip", "platformint" : 2},
+        {"name" : "mac", "enabled" : false, "file" : "", "platformint" : 4},
+        {"name" : "lin32", "enabled" : false, "file" : "ScrumbleShip-${VL}-lin32-full.zip", "platformint" : 1},
         {"name" : "src", "enabled" : true, "file" : "ScrumbleShip-${VS}-source.zip", "platformint" : 3},
-        {"name" : "lin64", "enabled" : true, "file" : "ScrumbleShip-${VL}-lin64-full.zip", "platformint" : 4}
+        {"name" : "lin64", "enabled" : true, "file" : "ScrumbleShip-${VL}-lin64-full.zip", "platformint" : 2}
       ],
-      "base" : "http://dynamic.scrumbleship.com/system/files"
+      "base" : "http://dynamic.scrumbleship.com/system/files/"
     }
   },
   "subs" : [

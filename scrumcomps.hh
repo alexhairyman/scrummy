@@ -62,7 +62,7 @@ namespace scrum
   {
   public:
     scrumwin();
-    void setdrupalauth(scrum::drupalauth *d);
+    void setdrupalauth(scrum::DrupalAuth *d);
     void gatherdat();
     void go();
     versel getversel();
@@ -70,7 +70,7 @@ namespace scrum
     
   private:
     // gettin' down 'n' dirty!
-    drupalauth * this_drupalauth_;
+    DrupalAuth * this_drupalauth_;
     Fl_Box * main_label_;
     Fl_Button * do_but_;
     Fl_Button * unzip_but_;

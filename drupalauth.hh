@@ -34,6 +34,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <boost/filesystem.hpp>
 #include <iostream>
 #include <fstream>
+
+#include "config.hh"
 #include "scrummer2.hh"
 
 #include <string>
@@ -46,11 +48,11 @@ size_t null_write_callback(char * dat, size_t sizeofo, size_t count, void* f);
 
 namespace scrum
 {
-  class drupalauth
+  class DrupalAuth
   {
   public:
-    drupalauth();
-    ~drupalauth();
+    DrupalAuth();
+    ~DrupalAuth();
     
     void Download();
     void Login(string user, string pass);
@@ -60,8 +62,8 @@ namespace scrum
     void SetVersion(int V);
     int GetSelectedVersion();
     
-    static string GetStringOfFile(int plat);
-    static string GetStringOfUrl(int plat);
+    string GetStringOfFile(int plat);
+    string GetStringOfUrl(int plat);
     
   private:
     bool has_downloaded_;
@@ -72,6 +74,7 @@ namespace scrum
     ostream * complaint_box_;
     curlpp::Easy login_cp_, download_cp_;
     bool is_authed_;
+    ScrummyConfigure configuration_;
     
 // I should move this up top, oh well
 #include <boost/version.hpp>

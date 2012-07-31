@@ -1,3 +1,6 @@
+#ifndef __CONFIG
+#define __CONFIG
+
 #include <json/reader.h>
 #include <json/elements.h>
 #include <json/writer.h>
@@ -25,6 +28,7 @@ namespace scrum
       string name;
       string value;
       bool enabled;
+      bool empty;
     };
     
     struct Platform
@@ -33,28 +37,30 @@ namespace scrum
       string filename;
       bool available;
       int platformint;
-      
-//      string CompleteUrl(string base); // Do I need this
+      string url; //hrmmmm I shoud probably figure this out 
+      void CopyFrom(Platform from);
     };
     
     class Configuration
     {
     public:
-//      Platform& operator[] (const int platformint);
-//      Platform& operator[] (const char* index);
+      conf::Configuration& operator()(int plat_enum);
       string ConfigureString(string input);
-      Platform GetPlat(const int index);
+      Platform GetPlat(const int plat_enum);
+      Sub GetSubFromKey(string key);
       void ConfigureViaJson(json::Object rootobj);
       
     private:
+      
+      friend class Platform;
       void PopulateSubs();
       void PopulatePlatforms();
       Sub SubFromJsonObj(json::Object from);
       Platform PlatformFromJsonObj(json::Object from);
-
       
       json::Object json_object_;
       vector<Platform> platforms_;
+      string base_url_;
       vector<Sub> subs_;
       int version_;
       string version_string_;
@@ -76,26 +82,34 @@ namespace scrum
     
     bool Linux32Available();
     string Linux32Url();
+    string Linux32FileName();
     
     bool Linux64Available();
     string Linux64Url();
+    string Linux64FileName();
     
     bool WindowsAvailable();
     string WindowsUrl();
+    string WindowsFileName();
     
     bool MacAvailable();
-    string MacUrl;
+    string MacUrl();
+    string MacFileName();
     
     bool SourceAvailable();
     string SourceUrl();
+    string SourceFileName();
     
     void PopulateConf(); // populates the configuration
+    
+    conf::Platform GetPlat(int plat_enum);
 
   private:
-    json::Reader * json_reader_;
-    json::Object * root_obj_;
-    stringstream * read_stream_;
+    json::Reader json_reader_;
+    json::Object root_obj_;
+    stringstream read_stream_;
     conf::Configuration * conf_;
     
   };
 }
+#endif

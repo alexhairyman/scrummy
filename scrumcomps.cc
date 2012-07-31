@@ -105,7 +105,7 @@ namespace scrum
     
   }
   
-  void scrumwin::setdrupalauth(drupalauth *d)
+  void scrumwin::setdrupalauth(DrupalAuth *d)
   {
     this_drupalauth_ = d;
   }
