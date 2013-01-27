@@ -74,9 +74,6 @@ namespace scrum
         {
         case 7:
           FLalertbox("No platform selected");
-//          cout << "no platform selected" << endl;
-//          terminate();
-//          exit(99);
           break;
         }
     }

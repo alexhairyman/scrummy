@@ -3,6 +3,8 @@ project(scrummy)
 
 #set(CMAKE_CXX_FLAGS "-static")
 
+set(CMAKE_CXX_COMPILER "clang++")
+
 message("READ THE README!")
 list(APPEND
   CMAKE_MODULE_PATH
@@ -15,7 +17,7 @@ find_package(Boost REQUIRED COMPONENTS filesystem system)
 find_package(FLTK REQUIRED)
 find_package(CURLpp REQUIRED)
 find_package(FontConfig REQUIRED)
-find_package(Poco REQUIRED COMPONENTS Zip Foundation)
+#find_package(Poco REQUIRED COMPONENTS Zip Foundation)
 
 add_definitions("-I.." "-I.")
 list(APPEND
@@ -29,7 +31,7 @@ list(APPEND
 )
 
 
-#yes, these are here for a reason, If someone wants a shared library, so now getting pissed at me
+#yes, these are here for a reason, If someone wants a shared library, so no getting pissed at me
 #add_library("SCRUMS" SHARED ${BUILTCOMPS})
 add_library("SCRUMA" STATIC ${BUILTCOMPS})
 
@@ -53,5 +55,7 @@ set_target_properties("SCRUMA"
 
 
 set(CMAKE_LINK_FLAGS "-L.")
+add_executable("uztest" "test/unziptest.cc")
+target_link_libraries("uztest" "archive" "SCRUMA" ${Boost_LIBRARIES})
 add_executable("scrummer" "scrummer.cc")
-target_link_libraries("scrummer" "SCRUMA" ${CURLPP_LIBRARIES} ${Boost_LIBRARIES} ${X11_LIBRARIES} ${FLTK_LIBRARIES} ${FONTCONFIG_LIBRARIES} ${Poco_LIBRARIES})
+target_link_libraries("scrummer" "SCRUMA" ${CURLPP_LIBRARIES} ${Boost_LIBRARIES} ${X11_LIBRARIES} ${FLTK_LIBRARIES} ${FONTCONFIG_LIBRARIES} "archive")

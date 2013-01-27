@@ -129,7 +129,8 @@ namespace scrum
     vv->gatherdat();
     vv->this_drupalauth_->Login(vv->username_,vv->password_);
     
-    try{
+    try
+      {
       if(vv->this_drupalauth_->is_authed() == true)
         {
           vv->login_stat_->toggle();

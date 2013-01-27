@@ -1,9 +1,9 @@
 #ifndef __CONFIG
 #define __CONFIG
 
-#include <json/reader.h>
-#include <json/elements.h>
-#include <json/writer.h>
+#include "cajun/reader.h"
+#include "cajun/elements.h"
+#include "cajun/writer.h"
 
 #include <string>
 #include <fstream>
@@ -99,6 +99,10 @@ namespace scrum
     bool SourceAvailable();
     string SourceUrl();
     string SourceFileName();
+
+    bool GetStorePassword(); // if the user wants their password stored or not
+    string GetUser();
+    string GetPassword(); // will return an empty string if store_password is no good
     
     void PopulateConf(); // populates the configuration
     
